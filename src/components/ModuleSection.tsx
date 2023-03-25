@@ -1,12 +1,12 @@
-import { Status, TypeModule } from "../courses";
+import { Status, Module } from "../interfaces/types";
 import ModuleAccordion from "./ModuleAccordion";
 
 interface Props {
-  modules: TypeModule[];
+  modules: Module[];
   inc: Function;
 }
 
-function lvl5Access(m: TypeModule[]) {
+function lvl5Access(m: Module[]) {
   let mods = m.filter((x) => x.lvl === 4);
 
   let cmCompleted =

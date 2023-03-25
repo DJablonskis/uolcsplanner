@@ -1,35 +1,29 @@
-import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
+import { Term } from "../interfaces/types";
 import Year from "./Year";
 
 interface Props {
-  years: Year[];
-  addYear: any;
+  terms: Term[];
 }
 
-interface Year {
-  t1: string[];
-  t2: string[];
-}
-let Calendar = ({ years, addYear }: Props) => {
+let Calendar = ({ terms }: Props) => {
+  let years = [1, 2, 3, 4, 5, 6];
+
   return (
     <Container>
       <Row>
         <Col>
-          <h1>
-            Study calendar{" "}
-            {years.length < 6 && <Button onClick={addYear}>+ Add year</Button>}
-          </h1>
+          <h1>Study calendar</h1>
         </Col>
       </Row>
 
-      {years.length > 0 &&
-        years.map((y, i) => <Year key={"year-" + i} number={i} terms={y} />)}
+      {years.map((y) => (
+        <Year key={"year-" + y} number={y} terms={terms} />
+      ))}
     </Container>
   );
 };
 
-export { Calendar, Year };
+export default Calendar;

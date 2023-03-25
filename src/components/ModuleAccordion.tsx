@@ -1,12 +1,11 @@
-import { TypeModule, Status } from "../courses";
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
-import Module from "./Module";
-
+import Mod from "./Mod";
+import { Module } from "../interfaces/types";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 interface Props {
-  m: TypeModule[];
+  m: Module[];
   lvl: number;
   inc: Function;
 }
@@ -42,7 +41,7 @@ const ModuleAccordion = ({ m, lvl, inc }: Props) => {
                           {...provided.draggableProps}
                           ref={provided.innerRef}
                         >
-                          <Module
+                          <Mod
                             inc={inc}
                             key={mod.code as React.Key}
                             module={mod}

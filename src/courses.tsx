@@ -1,20 +1,6 @@
-enum Status {
-  None = 0,
-  Selected,
-  Attempted,
-  Completed,
-}
-interface TypeModule {
-  name: string;
-  id: string;
-  slack: string;
-  credits: 0 | 15 | 30;
-  status: Status;
-  lvl: 4 | 5 | 6;
-  code: string;
-}
+import { Module } from "./interfaces/types";
 
-const modules: TypeModule[] = [
+const modules: Module[] = [
   {
     name: "Algorithms and Data Structures I",
     id: "ADS1",
@@ -278,4 +264,4 @@ const modules: TypeModule[] = [
   },
 ];
 
-export { type TypeModule, modules, Status };
+export default modules;
