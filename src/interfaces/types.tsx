@@ -8,10 +8,11 @@ export enum Status {
 export type TermModule = {
   code: string;
   status: Status;
+  term: number;
 };
 
 export interface Term {
-  codes: TermModule[];
+  takenCourses: TermModule[];
 }
 
 export interface Module {
@@ -19,7 +20,6 @@ export interface Module {
   id: string;
   slack: string;
   credits: 0 | 15 | 30;
-  status: Status;
   lvl: 4 | 5 | 6;
   code: string;
 }

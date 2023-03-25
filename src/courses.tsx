@@ -1,12 +1,27 @@
-import { Module } from "./interfaces/types";
+import { Module, Term, TermModule } from "./interfaces/types";
 
-const modules: Module[] = [
+export const getCourseInstances = (terms: Term[], courseCode: string) => {
+  let instances: TermModule[] = [];
+  terms.forEach((t, i) => {
+    t.takenCourses.forEach((c) => {
+      if (c.code === courseCode) {
+        instances.push({
+          term: i,
+          code: courseCode,
+          status: c.status,
+        });
+      }
+    });
+  });
+  return instances;
+};
+
+export const Courses: Module[] = [
   {
     name: "Algorithms and Data Structures I",
     id: "ADS1",
     slack: "#cm1035-algos-data-i",
     credits: 15,
-    status: 0,
     code: "CM1035",
     lvl: 4,
   },
@@ -15,7 +30,6 @@ const modules: Module[] = [
     id: "CM",
     slack: "#cm1015-computational-math",
     credits: 15,
-    status: 0,
     code: "CM1015",
     lvl: 4,
   },
@@ -24,7 +38,6 @@ const modules: Module[] = [
     id: "DM",
     slack: "#cm1020-discrete-math",
     credits: 15,
-    status: 0,
     code: "CM1020",
     lvl: 4,
   },
@@ -33,7 +46,6 @@ const modules: Module[] = [
     id: "FCS",
     slack: "#cm1025-fundamental-cs",
     credits: 15,
-    status: 0,
     code: "CM1025",
     lvl: 4,
   },
@@ -42,7 +54,6 @@ const modules: Module[] = [
     id: "HCW",
     slack: "#cm1030-hcw",
     credits: 15,
-    status: 0,
     code: "CM1030",
     lvl: 4,
   },
@@ -51,7 +62,6 @@ const modules: Module[] = [
     id: "ITP1",
     slack: "#cm1005-intro-prog-i",
     credits: 15,
-    status: 0,
     code: "CM1005",
     lvl: 4,
   },
@@ -60,7 +70,6 @@ const modules: Module[] = [
     id: "ITP2",
     slack: "#cm1010-intro-prog-ii",
     credits: 15,
-    status: 0,
     code: "CM1010",
     lvl: 4,
   },
@@ -69,7 +78,6 @@ const modules: Module[] = [
     id: "WD",
     slack: "#cm1040-web-dev",
     credits: 15,
-    status: 0,
     code: "CM1040",
     lvl: 4,
   },
@@ -78,7 +86,6 @@ const modules: Module[] = [
     id: "ASP",
     slack: "#cm2020-agile-software-projects",
     credits: 15,
-    status: 0,
     code: "CM2020",
     lvl: 5,
   },
@@ -87,7 +94,6 @@ const modules: Module[] = [
     id: "ADS2",
     slack: "#cm2035-algos-data-ii",
     credits: 15,
-    status: 0,
     code: "CM2035",
     lvl: 5,
   },
@@ -96,7 +102,6 @@ const modules: Module[] = [
     id: "CSec",
     slack: "#cm2025-computer-security",
     credits: 15,
-    status: 0,
     code: "CM2025",
     lvl: 5,
   },
@@ -105,7 +110,6 @@ const modules: Module[] = [
     id: "DNW",
     slack: "#cm2040-databases-networks-web",
     credits: 15,
-    status: 0,
     code: "CM2040",
     lvl: 5,
   },
@@ -114,7 +118,6 @@ const modules: Module[] = [
     id: "GP",
     slack: "#cm2030-graphics-programming",
     credits: 15,
-    status: 0,
     code: "CM2030",
     lvl: 5,
   },
@@ -123,7 +126,6 @@ const modules: Module[] = [
     id: "OOP",
     slack: "#cm2005-object-oriented-programming",
     credits: 15,
-    status: 0,
     code: "CM2005",
     lvl: 5,
   },
@@ -132,7 +134,6 @@ const modules: Module[] = [
     id: "PWD",
     slack: "#cm2015-programming-with-data",
     credits: 15,
-    status: 0,
     code: "CM2015",
     lvl: 5,
   },
@@ -141,7 +142,6 @@ const modules: Module[] = [
     id: "SDD",
     slack: "#cm2010-software-design-development",
     credits: 15,
-    status: 0,
     code: "CM2010",
     lvl: 5,
   },
@@ -149,7 +149,6 @@ const modules: Module[] = [
   {
     name: "3D Graphics and Animation",
     credits: 15,
-    status: 0,
     code: "CM3045",
     lvl: 6,
     id: "3DGA",
@@ -159,7 +158,6 @@ const modules: Module[] = [
   {
     name: "Advanced Web Development",
     credits: 15,
-    status: 0,
     code: "CM3035",
     lvl: 6,
     id: "AWD",
@@ -169,7 +167,6 @@ const modules: Module[] = [
   {
     name: "Artificial Intelligence",
     credits: 15,
-    status: 0,
     code: "CM3020",
     lvl: 6,
     id: "AI",
@@ -179,7 +176,6 @@ const modules: Module[] = [
   {
     name: "Data Science",
     credits: 15,
-    status: 0,
     code: "CM3005",
     lvl: 6,
     id: "DS",
@@ -188,7 +184,6 @@ const modules: Module[] = [
   {
     name: "Databases and Advanced Data Techniques",
     credits: 15,
-    status: 0,
     code: "CM3010",
     lvl: 6,
     id: "DADT",
@@ -198,7 +193,6 @@ const modules: Module[] = [
   {
     name: "Games Development",
     credits: 15,
-    status: 0,
     code: "CM3030",
     lvl: 6,
     id: "GD",
@@ -207,7 +201,6 @@ const modules: Module[] = [
   {
     name: "Intelligent Signal Processing",
     credits: 15,
-    status: 0,
     code: "CM3065",
     lvl: 6,
     id: "ISP",
@@ -217,7 +210,6 @@ const modules: Module[] = [
   {
     name: "Machine Learning and Neural Networks",
     credits: 15,
-    status: 0,
     code: "CM3015",
     lvl: 6,
     id: "MLNN",
@@ -226,7 +218,6 @@ const modules: Module[] = [
   {
     name: "Mobile Development",
     credits: 15,
-    status: 0,
     code: "CM3050",
     lvl: 6,
     id: "MD",
@@ -236,7 +227,6 @@ const modules: Module[] = [
   {
     name: "Natural Language Processing",
     credits: 15,
-    status: 0,
     code: "CM3060",
     lvl: 6,
     id: "NLP",
@@ -246,7 +236,6 @@ const modules: Module[] = [
   {
     name: "Physical Computing and Internet of Things",
     credits: 15,
-    status: 0,
     code: "CM3040",
     lvl: 6,
     id: "IOT",
@@ -256,12 +245,9 @@ const modules: Module[] = [
   {
     name: "Virtual Reality",
     credits: 15,
-    status: 0,
     code: "CM3025",
     lvl: 6,
     id: "VR",
     slack: "#cm3025-virtual-reality",
   },
 ];
-
-export default modules;

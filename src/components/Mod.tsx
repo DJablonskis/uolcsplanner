@@ -1,33 +1,32 @@
-import { Status, Module } from "../interfaces/types";
+import { Status, TermModule } from "../interfaces/types";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Badge from "react-bootstrap/Badge";
 
-import { Draggable } from "react-beautiful-dnd";
+import { Courses } from "../courses";
 
 interface Props {
-  module: Module;
-  inc: Function;
+  module: TermModule;
+  isDragging?: boolean;
+  editable?: boolean;
 }
 
-const Mod = ({ module: m, inc }: Props) => {
-  let bg = ["secondary", "primary", "warning", "success"];
-  return (
-    <ListGroupItem>
+const Mod = ({ module }: Props) => {
+  let m = Courses.find((c) => c.code === module.code);
+
+  return m ? (
+    <ListGroupItem className="px-4 py-2 mb-1">
       <div>
         <strong>{m.code}</strong> <small> ({m.id})</small>
-        <Badge
-          style={{ cursor: "pointer" }}
-          onClick={() => inc(m.code)}
-          className="ms-4"
-          bg={bg[m.status]}
-        >
-          {Status[m.status]}
+        <Badge style={{ cursor: "pointer" }} className="ms-4">
+          {Status[module.status]}
         </Badge>
       </div>
       <div className="h5 mt-1">
         <em>{m.name}</em>
       </div>
     </ListGroupItem>
+  ) : (
+    <p>Course does not exist</p>
   );
 };
 

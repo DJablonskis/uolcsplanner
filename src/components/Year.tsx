@@ -1,13 +1,41 @@
 import { Droppable } from "react-beautiful-dnd";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { Courses } from "../courses";
 import { Term } from "../interfaces/types";
+import Mod from "./Mod";
 import "./Year.css";
 
 interface Props {
   number: number;
   terms: Term[];
 }
+
+let TermDropable = ({ term, i }: { term: Term; i: number }) => {
+  return (
+    <Col xs={6} className="term">
+      <div>Term {i + 1}</div>
+      <Droppable
+        isDropDisabled={term.takenCourses.length > 3}
+        droppableId={`term-${i}`}
+      >
+        {(provided) => (
+          <div
+            className="droparea"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {term.takenCourses.map((tm) => (
+              <Mod module={tm} />
+            ))}
+
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </Col>
+  );
+};
 
 let Year = ({ terms, number }: Props) => {
   console.log(terms);
@@ -19,36 +47,8 @@ let Year = ({ terms, number }: Props) => {
       <Col xs={12}>
         <h3>Year {number}</h3>
       </Col>
-      <Col className="term p-2 me-2">
-        <div>Term 1</div>
-        <Droppable droppableId={`term-${t1}`}>
-          {(provided) => (
-            <div
-              className="droparea"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {terms[t1].codes.length + " modules"}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </Col>
-      <Col className="term p-2">
-        <div>Term 2</div>
-        <Droppable droppableId={`term-${t2}`}>
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="droparea"
-            >
-              {terms[t2].codes.length + " modules"}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </Col>
+      <TermDropable term={terms[t1]} i={t1} />
+      <TermDropable term={terms[t2]} i={t2} />
     </Row>
   );
 };
