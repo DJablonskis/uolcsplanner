@@ -26,7 +26,7 @@ let TermDropable = ({ term, i }: { term: Term; i: number }) => {
             ref={provided.innerRef}
           >
             {term.takenCourses.map((tm) => (
-              <Mod module={tm} />
+              <Mod code={tm.code} />
             ))}
 
             {provided.placeholder}

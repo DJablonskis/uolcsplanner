@@ -1,23 +1,42 @@
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Mod from "./Mod";
-import { Term, Status } from "../interfaces/types";
+import { Term, Module } from "../interfaces/types";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Courses, getCourseInstances } from "../courses";
+import { Courses } from "../courses";
 
 interface Props {
   terms: Term[];
   lvl: number;
 }
 
+
+
+const AccordionCourse = ({m}:any) =>{
+  return  <ListGroupItem className="px-4 py-2 mb-1">
+  <div>
+    <strong>{m.code}</strong> <small> ({m.id})</small>
+  </div>
+  <div className="h5 mt-1">
+    <em>{m.name}</em>
+  </div>
+</ListGroupItem>
+}
+
 const ModuleAccordion = ({ terms, lvl }: Props) => {
-  let modules = Courses.filter((l) => l.lvl === lvl);
 
-  let droppableModules = modules.map((m) => {
-    let instances = getCourseInstances(terms, m.code);
-  });
+  let modules: Module[] = Courses.filter((l) => l.lvl === lvl);
 
-  let available = modules.filter((l) => l.status === Status.None);
+  // let droppableModules = modules.map((m) => {
+  //   let instances = getCourseInstances(terms, m.code);
+  //   instances.map
+  //   console.log(instances)
+  // });
+
+
+
+
 
   return (
     <Accordion className="mb-2">
@@ -26,7 +45,7 @@ const ModuleAccordion = ({ terms, lvl }: Props) => {
           <strong>Level {lvl}</strong>
         </Accordion.Header>
         <Accordion.Body>
-          {available.length > 0 ? (
+          {modules.length > 0 ? (
             <Droppable droppableId={lvl.toString()} isDropDisabled={true}>
               {(provided) => (
                 <ListGroup
@@ -34,7 +53,7 @@ const ModuleAccordion = ({ terms, lvl }: Props) => {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {available.map((mod, i) => (
+                  {modules.map((mod, i) => (
                     <Draggable
                       // isDragDisabled={
                       //   mod.status === Status.Completed ||
@@ -44,18 +63,15 @@ const ModuleAccordion = ({ terms, lvl }: Props) => {
                       draggableId={mod.code}
                       index={i}
                     >
-                      {(provided, snapshot) => (
+                      {(provided) => (
                         <div
                           {...provided.dragHandleProps}
                           {...provided.draggableProps}
                           ref={provided.innerRef}
                         >
                           <Mod
-                            editable={true}
-                            isDragging={snapshot.isDragging}
-                            inc={inc}
-                            key={mod.code as React.Key}
-                            module={mod}
+                          code={mod.code}
+                          key={mod.code as React.Key}
                           />
                         </div>
                       )}
