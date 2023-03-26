@@ -2,13 +2,14 @@
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 import { Courses } from "../courses";
+import { TermModule } from "../interfaces/types";
 
 interface Props {
-  code: string;
+  course: TermModule;
 }
 
-const Mod = ({ code }: Props) => {
-  let m = Courses.find((c) => c.code === code);
+const Mod = ({ course }: Props) => {
+  let m = Courses.find((c) => c.code === course.code);
 
   return m ? (
     <ListGroupItem className="px-4 py-2 mb-1">
