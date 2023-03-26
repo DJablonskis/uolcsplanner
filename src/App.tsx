@@ -7,7 +7,6 @@ import Calendar from "./components/Calendar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { DragDropContext } from "react-beautiful-dnd";
 import { Status, Term } from "./interfaces/types";
 
 function App() {
@@ -26,23 +25,7 @@ function App() {
     { takenCourses: [] },
   ]);
 
-  function handleOnDragEnd(result: any) {
-    console.log(result);
-    if (result.destination) {
-      if (result.destination.droppableId.startsWith("term")) {
-        let data = result.destination.droppableId.split("-");
-        addToTerm(parseInt(data[1]), result.draggableId);
-      } else if (result.source.droppableId === result.destination.droppableId) {
-        // TODO: handle drop
-      } else {
-        console.log("not supported");
-      }
-    }
-  }
-
   function addToTerm(term: number, id: string) {
-    console.log("adding: ", term, id);
-
     setTerms((old) => {
       // TODO: logic for dublicates and alowed modules to be checked
 
@@ -84,19 +67,30 @@ function App() {
     // }
   }
 
+  function addCourseToTerm(courseCode: string, termIndex: number) {
+    console.log(courseCode, termIndex);
+    setTerms((old) => {
+      let n = [...old];
+      n[termIndex].takenCourses = [
+        ...old[termIndex].takenCourses,
+        { code: courseCode, status: Status.Selected, term: termIndex },
+      ];
+
+      return n;
+    });
+  }
+
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Container>
-        <Row>
-          <Col md={6} lg={5} xl={4} xxl={3}>
-            <ModuleSection terms={terms} />
-          </Col>
-          <Col>
-            <Calendar terms={terms} />
-          </Col>
-        </Row>
-      </Container>
-    </DragDropContext>
+    <Container>
+      <Row>
+        <Col md={6} lg={5} xl={4} xxl={3}>
+          <ModuleSection terms={terms} />
+        </Col>
+        <Col>
+          <Calendar terms={terms} addCourseInstance={addCourseToTerm} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

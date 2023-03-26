@@ -1,4 +1,4 @@
-import { Term } from "../interfaces/types";
+import { Term, TermModule } from "../interfaces/types";
 import ModuleAccordion from "./ModuleAccordion";
 
 interface Props {
@@ -28,13 +28,30 @@ interface Props {
 // return { available: lvl5Available, bp1: lvl5bp1, bp2: lvl5bp2, bp3: lvl5bp3 };
 // }
 
+// Generates object with course codes as keys, each key has an array representing instance of course, term and status of instance.
 function ModuleSection({ terms }: Props): JSX.Element {
+  let allModules: { [key: string]: TermModule[] } = {};
+  terms.forEach((term) => {
+    term.takenCourses.forEach((course) => {
+      allModules[course.code]
+        ? allModules[course.code].push(course)
+        : (allModules[course.code] = [course]);
+    });
+  });
+
   return (
     <div>
       <h3>Taken modules:</h3>
-      <ModuleAccordion terms={terms} lvl={4} />
-      <ModuleAccordion terms={terms} lvl={5} />
-      <ModuleAccordion terms={terms} lvl={6} />
+      {Object.keys(allModules).map((k) => (
+        <div>
+          <p>Course: {k}</p>
+          <div>
+            {allModules[k].map((inst) => (
+              <div key={inst.code + "-" + inst.status}>{inst.status}</div>
+            ))}
+          </div>
+        </div>
+      ))}
 
       {/* 
         // <div>

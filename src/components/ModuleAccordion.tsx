@@ -7,9 +7,12 @@ import AccordionCourse from "./AccordionCourse";
 interface Props {
   terms: Term[];
   lvl: number;
+  termIndex: number;
+  add: (courseCode: string, termIndex: number) => void;
 }
 
-const ModuleAccordion = ({ terms, lvl }: Props) => {
+const ModuleAccordion = ({ lvl, termIndex, add }: Props) => {
+  // TODO: do availability filtering here??
   let modules = Courses.filter((l) => l.lvl === lvl);
 
   return (
@@ -20,8 +23,13 @@ const ModuleAccordion = ({ terms, lvl }: Props) => {
         </Accordion.Header>
         <Accordion.Body>
           <ListGroup variant="flush">
-            {modules.map((m) => (
-              <AccordionCourse course={m} terms={terms} />
+            {modules.map((m, i) => (
+              <AccordionCourse
+                add={add}
+                key={m.code + "-" + i}
+                course={m}
+                termIndex={termIndex}
+              />
             ))}
           </ListGroup>
         </Accordion.Body>

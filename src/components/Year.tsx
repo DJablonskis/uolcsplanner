@@ -11,8 +11,6 @@ interface Props {
 }
 
 let Year = ({ terms, number, selection }: Props) => {
-  console.log(terms);
-
   let t1 = number * 2 - 2;
   let t2 = number * 2 - 1;
   return (

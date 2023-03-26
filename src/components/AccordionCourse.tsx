@@ -1,13 +1,13 @@
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-import { getCourseInstances } from "../courses";
 import { Module, Term } from "../interfaces/types";
 
 interface Props {
   course: Module;
-  terms: Term[];
+  termIndex: number;
+  add: (courseCode: string, termIndex: number) => void;
 }
 
-const AccordionCourse = ({ course, terms }: Props) => {
+const AccordionCourse = ({ course, termIndex, add }: Props) => {
   return (
     <ListGroupItem className="px-4 py-2 mb-1">
       <div>
@@ -17,14 +17,9 @@ const AccordionCourse = ({ course, terms }: Props) => {
       <div className="h5 mt-1">
         <em>{course.name}</em>
       </div>
-      <div>
-        Instances:{" "}
-        {getCourseInstances(terms, course.code).map((i) => (
-          <div>
-            {i.code} {i.status}
-          </div>
-        ))}
-      </div>
+      <button onClick={() => add(course.code, termIndex)}>
+        Add to term {termIndex}
+      </button>
     </ListGroupItem>
   );
 };
