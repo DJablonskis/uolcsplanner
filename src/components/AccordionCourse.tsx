@@ -1,4 +1,3 @@
-import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import { Module, Term } from "../interfaces/types";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 
 const AccordionCourse = ({ course, termIndex, add }: Props) => {
   return (
-    <ListGroupItem className="px-4 py-2 mb-1">
+    <div className="px-4 py-2 mb-1">
       <div>
         <strong>{course.code}</strong>
         <small> ({course.id})</small>
@@ -20,7 +19,7 @@ const AccordionCourse = ({ course, termIndex, add }: Props) => {
       <button onClick={() => add(course.code, termIndex)}>
         Add to term {termIndex}
       </button>
-    </ListGroupItem>
+    </div>
   );
 };
 

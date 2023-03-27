@@ -1,6 +1,4 @@
 import { Term, TermModule } from "../interfaces/types";
-import ModuleAccordion from "./ModuleAccordion";
-
 interface Props {
   terms: Term[];
 }
@@ -41,7 +39,9 @@ function ModuleSection({ terms }: Props): JSX.Element {
 
   return (
     <div>
-      <h3>Taken modules:</h3>
+      <h3 className="text-black-700 font-bold text-xl mt-2 mb-4">
+        Taken modules
+      </h3>
       {Object.keys(allModules).map((k) => (
         <div>
           <p>Course: {k}</p>
